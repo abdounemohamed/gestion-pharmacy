@@ -1,0 +1,914 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package forms;
+
+import controls.mycolortable;
+import db.go;
+import entity.stock;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
+import work.tools;
+
+/**
+ *
+ * @author choqib
+ */
+public class framstock extends javax.swing.JFrame {
+    stock s= new stock();
+String HDate1;
+    /**
+     * Creates new form framstock
+     */
+    public framstock() {
+        this.setUndecorated(false);
+        this.setAlwaysOnTop(false);
+       this.setResizable(false);
+        this.setVisible(true);
+        
+    
+        initComponents();
+        btvalidation1.setVisible(false);
+       jTable1.setDefaultRenderer(Object.class, new mycolortable() );
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+         TableColumn col=jTable1.getColumnModel().getColumn(0);
+ col.setPreferredWidth(30);
+ col=jTable1.getColumnModel().getColumn(1);
+ col.setPreferredWidth(300);
+  col=jTable1.getColumnModel().getColumn(2);
+ col.setPreferredWidth(80);
+  col=jTable1.getColumnModel().getColumn(3);
+ col.setPreferredWidth(70);
+  col=jTable1.getColumnModel().getColumn(4);
+ col.setPreferredWidth(70);
+  col=jTable1.getColumnModel().getColumn(5);
+ col.setPreferredWidth(70);
+  col=jTable1.getColumnModel().getColumn(6);
+ col.setPreferredWidth(70);
+  col=jTable1.getColumnModel().getColumn(7);
+ col.setPreferredWidth(70);
+  col=jTable1.getColumnModel().getColumn(8);
+ col.setPreferredWidth(50);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x=(int) tk.getScreenSize().getWidth();
+        int y=(int) tk.getScreenSize().getHeight();
+        this.setSize(1440, 750);
+            Calendar clndr =Calendar.getInstance();
+             jTable1.getTableHeader().setBackground(new Color(0,0,100));
+             String[] data ={"Etagère A","Etagère B","Etagère C","Etagère D","Etagère E","Etagère F","Etagère G",
+                 "Etagère H","Etagère I","Etagère J","Etagère K","comptoire A","comptoire B","comptoire C",
+                 "comptoire D","Armoire A","Armoire B"," Frigo"};
+             String[] data1 ={"1","2","3","4","5","6","7","8","9","10"};
+             JComboBox jcb= new JComboBox(data);
+             TableColumn tc =jTable1.getColumnModel().getColumn(6);
+             TableCellEditor tcs= new DefaultCellEditor(jcb);
+             tc.setCellEditor(tcs);
+             JComboBox jcb1= new JComboBox(data1);
+             TableColumn tc1 =jTable1.getColumnModel().getColumn(7);
+             TableCellEditor tcs1= new DefaultCellEditor(jcb1);
+             tc1.setCellEditor(tcs1);
+             
+               
+jTable1.getTableHeader().setForeground(Color.white);
+jTable1.setShowGrid(true);
+jTable1.setShowVerticalLines(false);
+   jTable1.setColumnSelectionAllowed(false);
+    jTable1.setRowSelectionAllowed(true);
+    jTable1.setSelectionBackground(Color.green);
+    jTable1.setRowHeight(23);
+        clndr.add(Calendar.DATE,+180);
+         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        date1.setCalendar(clndr);
+        HDate1 = String.valueOf(f.format( date1.getDate() ));
+       
+        date1.setVisible(false);
+        comboetat.addItem("<TOUTS>");
+        comboetat.addItem("Disponible");
+        comboetat.addItem("Date proche");
+        
+        combofami.addItem("<TOUTS>");
+        combofami.addItem("Médicaments");
+        combofami.addItem("Parapharme");
+        if((combofami.getItemAt(0)=="<TOUTS>") & (comboetat.getItemAt(0)=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock", jTable1);
+       int count=jTable1.getRowCount();
+       float som=0,somtotal=0,somtotal1=0,prix,prix1;
+       for(int i=0;i<count;i++)
+       {
+       int tot=Integer.parseInt(jTable1.getValueAt(i,5).toString());
+       som=som+tot;
+       prix=Float.parseFloat(jTable1.getValueAt(i,4).toString());
+       prix1=Float.parseFloat(jTable1.getValueAt(i,3).toString());
+       
+      somtotal=somtotal+(tot*prix);
+      somtotal1=somtotal1+(tot*prix1);
+       }
+       nbrelement.setText(String.valueOf(count));
+       totproduit.setText(String.valueOf(som)+"  Produits");
+       some.setText(String.valueOf(somtotal)+"  DA.");
+       some1.setText(String.valueOf(somtotal1)+"  DA.");
+       some2.setText(String.valueOf(somtotal-somtotal1)+"  DA.");
+        }
+       
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        btvalidation = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        comboetat = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        combofami = new javax.swing.JComboBox<>();
+        nlot = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        nom = new javax.swing.JTextField();
+        date1 = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        nbrelement = new javax.swing.JLabel();
+        totproduit = new javax.swing.JLabel();
+        some = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        some1 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        some2 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        btvalidation1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(null);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/work/giphy.gif"))); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel16.setText("Ce processus prend un certain temps(1 à 2 min) attendre SVP");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel16)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(470, 150, 410, 270);
+
+        btvalidation.setBackground(new java.awt.Color(0, 102, 0));
+        btvalidation.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btvalidation.setForeground(new java.awt.Color(255, 255, 255));
+        btvalidation.setMnemonic('s');
+        btvalidation.setText("Validation d'emplacement");
+        btvalidation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btvalidationActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btvalidation);
+        btvalidation.setBounds(860, 530, 210, 30);
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Désignation", "N° Lot", "Prix d'achat", "Prix", "Qte", "Date Exp", "Emplacement", "N° Etage"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(20, 100, 1050, 420);
+
+        comboetat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        comboetat.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboetatItemStateChanged(evt);
+            }
+        });
+        comboetat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboetatActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboetat);
+        comboetat.setBounds(880, 60, 148, 31);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ETAT");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(840, 60, 42, 31);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Famille de Produit");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(530, 60, 118, 31);
+
+        combofami.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        combofami.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combofamiItemStateChanged(evt);
+            }
+        });
+        combofami.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combofamiActionPerformed(evt);
+            }
+        });
+        combofami.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                combofamiKeyReleased(evt);
+            }
+        });
+        getContentPane().add(combofami);
+        combofami.setBounds(650, 60, 169, 32);
+
+        nlot.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nlotActionPerformed(evt);
+            }
+        });
+        nlot.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nlotKeyReleased(evt);
+            }
+        });
+        getContentPane().add(nlot);
+        nlot.setBounds(400, 60, 99, 34);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("N° Lot");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(340, 60, 40, 34);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Désignation");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(10, 60, 79, 34);
+
+        nom.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomActionPerformed(evt);
+            }
+        });
+        nom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomKeyReleased(evt);
+            }
+        });
+        getContentPane().add(nom);
+        nom.setBounds(90, 60, 231, 34);
+
+        date1.setDateFormatString("yyyy-MM-dd");
+        date1.setEnabled(false);
+        getContentPane().add(date1);
+        date1.setBounds(60, -20, 130, 30);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Chercher Par Désignation ou N° Lot");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(220, 40, 250, 16);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Nombre des Eléments             :  ");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(150, 540, 230, 40);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Nombre Totals des produit    :");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(150, 570, 220, 30);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("La somme Totals des produit:");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(150, 600, 220, 30);
+
+        nbrelement.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        nbrelement.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(nbrelement);
+        nbrelement.setBounds(370, 540, 180, 40);
+
+        totproduit.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        totproduit.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(totproduit);
+        totproduit.setBounds(370, 570, 180, 30);
+
+        some.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        some.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(some);
+        some.setBounds(370, 600, 180, 30);
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(0, 153, 0));
+        jLabel33.setText("STOCK");
+        getContentPane().add(jLabel33);
+        jLabel33.setBounds(970, 20, 170, 50);
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/work/stockmarket.png"))); // NOI18N
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(1050, 10, 350, 180);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/work/self2.png"))); // NOI18N
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(900, 170, 460, 530);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        getContentPane().add(jLabel12);
+        jLabel12.setBounds(150, 620, 810, 17);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(150, 560, 810, 17);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+        getContentPane().add(jLabel14);
+        jLabel14.setBounds(150, 590, 810, 17);
+
+        some1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        some1.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(some1);
+        some1.setBounds(690, 600, 170, 30);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Totals des Achats:");
+        getContentPane().add(jLabel17);
+        jLabel17.setBounds(550, 600, 160, 30);
+
+        some2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        some2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(some2);
+        some2.setBounds(690, 630, 170, 30);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("------------------->:");
+        getContentPane().add(jLabel18);
+        jLabel18.setBounds(550, 630, 150, 30);
+
+        btvalidation1.setBackground(new java.awt.Color(0, 102, 0));
+        btvalidation1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btvalidation1.setForeground(new java.awt.Color(255, 255, 255));
+        btvalidation1.setMnemonic('s');
+        btvalidation1.setText("Help!!!!!");
+        btvalidation1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btvalidation1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btvalidation1);
+        btvalidation1.setBounds(550, 20, 180, 30);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/work/BB_Blue.png"))); // NOI18N
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(0, -6, 1390, 690);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void nlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nlotActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nlotActionPerformed
+
+    private void nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomActionPerformed
+
+    private void nomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomKeyReleased
+if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND nom LIKE'"+nom.getText()+"%'", jTable1);
+        }    
+  if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND nom LIKE '"+nom.getText()+"%'", jTable1);
+        } 
+    if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where nom LIKE '"+nom.getText()+"%'", jTable1);
+        } 
+      if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where qte>'0'  AND nom LIKE '"+nom.getText()+"'%", jTable1);
+        } 
+       if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where date<'"+HDate1+"' AND nom LIKE '"+nom.getText()+"%'", jTable1);
+        } 
+       if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND date<'"+HDate1+"' AND nom LIKE '"+nom.getText()+"%'", jTable1);
+        } 
+       if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND date<'"+HDate1+"' AND nom LIKE '"+nom.getText()+"%'", jTable1);
+        }
+       if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND qte>0 AND nom LIKE '"+nom.getText()+"'%", jTable1);
+        }
+       if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND qte>0 AND nom LIKE '"+nom.getText()+"%'", jTable1);
+        }
+        int count=jTable1.getRowCount();
+       float som=0,somtotal=0,somtotal1=0,prix,prix1;
+       for(int i=0;i<count;i++)
+       {
+       int tot=Integer.parseInt(jTable1.getValueAt(i,5).toString());
+       som=som+tot;
+       prix=Float.parseFloat(jTable1.getValueAt(i,4).toString());
+       prix1=Float.parseFloat(jTable1.getValueAt(i,3).toString());
+       
+      somtotal=somtotal+(tot*prix);
+      somtotal1=somtotal1+(tot*prix1);
+       }
+       nbrelement.setText(String.valueOf(count));
+       totproduit.setText(String.valueOf(som)+"  Produits");
+       some.setText(String.valueOf(somtotal)+"  DA.");
+       some1.setText(String.valueOf(somtotal1)+"  DA.");
+       some2.setText(String.valueOf(somtotal-somtotal1)+"  DA.");
+        
+    }//GEN-LAST:event_nomKeyReleased
+
+    private void nlotKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nlotKeyReleased
+if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where  n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        }    
+  if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot=''", jTable1);
+        } 
+    if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        } 
+      if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where qte>'0'  AND n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        } 
+       if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where date<'"+HDate1+"' AND n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        } 
+       if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND date<'"+HDate1+"' AND n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        } 
+       if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND date<'"+HDate1+"' AND n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        }
+       if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND qte>0 AND n_lot LIKE'"+nlot.getText()+"%'", jTable1);
+        }
+       if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+       s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND qte>0 AND nom LIKE ''", jTable1);
+        }
+             
+         int count=jTable1.getRowCount();
+       float som=0,somtotal=0,somtotal1=0,prix,prix1;
+       for(int i=0;i<count;i++)
+       {
+       int tot=Integer.parseInt(jTable1.getValueAt(i,5).toString());
+       som=som+tot;
+       prix=Float.parseFloat(jTable1.getValueAt(i,4).toString());
+       prix1=Float.parseFloat(jTable1.getValueAt(i,3).toString());
+       
+      somtotal=somtotal+(tot*prix);
+      somtotal1=somtotal1+(tot*prix1);
+       }
+       nbrelement.setText(String.valueOf(count));
+       totproduit.setText(String.valueOf(som)+"  Produits");
+       some.setText(String.valueOf(somtotal)+"  DA.");
+       some1.setText(String.valueOf(somtotal1)+"  DA.");
+       some2.setText(String.valueOf(somtotal-somtotal1)+"  DA.");// TODO add your handling code here:
+    }//GEN-LAST:event_nlotKeyReleased
+
+    private void comboetatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboetatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboetatActionPerformed
+
+    private void comboetatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboetatItemStateChanged
+        if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock;", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where qte>'0';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where date<'"+HDate1+"';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND date<'"+HDate1+"';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND date<'"+HDate1+"';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND qte>0;", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND qte>0;", jTable1);
+        }
+        int count=jTable1.getRowCount();
+       float som=0,somtotal=0,somtotal1=0,prix,prix1;
+       for(int i=0;i<count;i++)
+       {
+       int tot=Integer.parseInt(jTable1.getValueAt(i,5).toString());
+       som=som+tot;
+       prix=Float.parseFloat(jTable1.getValueAt(i,4).toString());
+       prix1=Float.parseFloat(jTable1.getValueAt(i,3).toString());
+       
+      somtotal=somtotal+(tot*prix);
+      somtotal1=somtotal1+(tot*prix1);
+       }
+       nbrelement.setText(String.valueOf(count));
+       totproduit.setText(String.valueOf(som)+"  Produits");
+       some.setText(String.valueOf(somtotal)+"  DA.");
+       some1.setText(String.valueOf(somtotal1)+"  DA.");
+       some2.setText(String.valueOf(somtotal-somtotal1)+"  DA.");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboetatItemStateChanged
+
+    private void combofamiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combofamiKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combofamiKeyReleased
+
+    private void combofamiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combofamiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combofamiActionPerformed
+
+    private void combofamiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combofamiItemStateChanged
+        if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="<TOUTS>") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock;", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where qte>'0';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="<TOUTS>"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where date<'"+HDate1+"';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND date<'"+HDate1+"';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Date proche") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND date<'"+HDate1+"';", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Médicaments"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot<>'' AND qte>0;", jTable1);
+        }
+        if((comboetat.getSelectedItem()=="Disponible") & (combofami.getSelectedItem()=="Parapharme"))
+        {
+            s.getCustomRows("select id,nom,n_lot,prixachat,prix,qte,date,emplacement,etage from stock where n_lot='' AND qte>0;", jTable1);
+        }
+
+        int count=jTable1.getRowCount();
+       float som=0,somtotal=0,somtotal1=0,prix,prix1;
+       for(int i=0;i<count;i++)
+       {
+       int tot=Integer.parseInt(jTable1.getValueAt(i,5).toString());
+       som=som+tot;
+       prix=Float.parseFloat(jTable1.getValueAt(i,4).toString());
+       prix1=Float.parseFloat(jTable1.getValueAt(i,3).toString());
+       
+      somtotal=somtotal+(tot*prix);
+      somtotal1=somtotal1+(tot*prix1);
+       }
+       nbrelement.setText(String.valueOf(count));
+       totproduit.setText(String.valueOf(som)+"  Produits");
+       some.setText(String.valueOf(somtotal)+"  DA.");
+       some1.setText(String.valueOf(somtotal1)+"  DA.");
+       some2.setText(String.valueOf(somtotal-somtotal1)+"  DA.");
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combofamiItemStateChanged
+
+    private void btvalidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btvalidationActionPerformed
+   
+   jPanel1.setVisible(true);
+        check_it();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btvalidationActionPerformed
+private void check_it()
+{
+   int count =jTable1.getRowCount();
+   
+   for(int i=0;i<count;i++)
+   {
+       
+    String strUpdate = "update stock set "
+        
+            + "etage='"+jTable1.getValueAt(i, 8).toString()
+            + "',emplacement='"+jTable1.getValueAt(i, 7).toString()    
+            + "' where "
+          + "id=" + jTable1.getValueAt(i, 0) + " ";
+        /*String strUpdate2 = "update stock set "
+        
+            + "emplacement='"+jTable1.getValueAt(i, 6).toString()
+                + "' where "
+          + "id=" + jTable1.getValueAt(i, 0) + " ";*/
+        boolean isUpdate = db.go.runNonQuery(strUpdate);
+                  // jPanel1.setVisible(true);
+
+        if(isUpdate){
+            //jPanel1.setVisible(true);
+            if(i==count-1){
+            tools.msgBox("le stock est mis a jour ");
+            jPanel1.setVisible(false);
+                }
+            } 
+       
+   
+   }
+
+
+
+}
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+jPanel1.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btvalidation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btvalidation1ActionPerformed
+      
+          int count=jTable1.getRowCount();
+
+        for(int i =0;i<count;i++)
+        {
+        String a=go.getSum("ordonanace", "qte", "where nom_produit='"+jTable1.getValueAt(i, 1).toString()+"' AND date_exp ='"
+                +jTable1.getValueAt(i, 6).toString()+"' AND prix='"+jTable1.getValueAt(i,4).toString()+"' AND n_lot='"+
+                jTable1.getValueAt(i, 2).toString()+"';");
+        s.setId(Integer.parseInt(jTable1.getValueAt(i, 0).toString()));
+        int newqte1=(Integer.parseInt(jTable1.getValueAt(i, 5).toString()))-Integer.parseInt(a);
+            s.setQte(newqte1);   
+            s.update();
+             if(i==count/2)
+                {
+                    tools.msgBox("the helf");
+                }
+             if(i==count-1)
+                {
+                    tools.msgBox("end");
+                }
+     
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*  int count=jTable1.getRowCount();
+
+        for(int i =0;i<count;i++)
+        {
+            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+            s.setId((Integer.parseInt(s.getAutoNumber())));
+            String HDate =( jTable1.getValueAt(i, 3).toString() );
+            s.setDate(HDate);
+            s.setPrixachat((Float.parseFloat(jTable1.getValueAt(i, 6).toString())));
+            s.setNom(jTable1.getValueAt(i, 1).toString());
+            s.setPrix((Float.parseFloat(jTable1.getValueAt(i, 7).toString())));
+            s.setQte((Integer.parseInt(jTable1.getValueAt(i, 5).toString())));
+            s.setN_lot(jTable1.getValueAt(i, 4).toString());
+
+            a.getCustomRows("select nom from stock where nom='"+jTable1.getValueAt(i, 1).toString()+"' AND n_lot='"+tabcmd.getValueAt(i, 4).toString()+"'AND date='"
+                +HDate+"'AND prix='"
+                +Float.parseFloat(jTable1.getValueAt(i, 7).toString())+"' ", test);
+
+           // a.getCustomRows("select nom from stock where n_lot='"+nlot.getText()+"'", test2);
+            test.setVisible(true);
+            stest.setVisible(true);
+            if(test.getRowCount()==0){st.add();
+                if(i==count-1)
+                {
+                    tools.msgBox("end");
+                }
+            }
+            if(test.getRowCount()>00){
+                String newid=s.getValueByNamesandnlot();
+                String oldqte=s.getqteByValue(newid);
+                int newqte =Integer.parseInt(jTable1.getValueAt(i, 5).toString());
+                int newqte1=Integer.parseInt(oldqte)+newqte;
+                s.setId(Integer.parseInt(newid));
+                s.setQte(newqte1);
+                s.update();
+                if(i==count-1)
+                {
+                    tools.msgBox("end");
+                }
+            }
+
+        }
+       */ 
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btvalidation1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(framstock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(framstock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(framstock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(framstock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new framstock().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btvalidation;
+    private javax.swing.JButton btvalidation1;
+    private javax.swing.JComboBox<String> comboetat;
+    private javax.swing.JComboBox<String> combofami;
+    private com.toedter.calendar.JDateChooser date1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel nbrelement;
+    private javax.swing.JTextField nlot;
+    private javax.swing.JTextField nom;
+    private javax.swing.JLabel some;
+    private javax.swing.JLabel some1;
+    private javax.swing.JLabel some2;
+    private javax.swing.JLabel totproduit;
+    // End of variables declaration//GEN-END:variables
+}
